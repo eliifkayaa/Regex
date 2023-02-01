@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>RegEx (Regular Expressions = Düzenli İfadeler)</h1>
+    <p>E-posta adresi, tarih, telefon numarası gibi kullanıcı tarafından girilen ve belirli bir düzen içeren girdilerin
+        kontrolünün sağlanması ve herhangi bir kod, metin içerisinde istenilen yazı veya kod parçasının aranıp
+        bulunmasını, yönetilmesini sağlayan kendine ait söz dizimi olan bir yapıdır.</p>
+    <br>
+    <h4>Number Control</h4>
+    <label for="">Değer Giriniz :</label>
+    <input type="text" id="input" onkeyup="checkRegEx()" placeholder="Lütfen değer giriniz..">
+
+    <script>
+        function checkRegEx() {
+            let element = document.getElementById("input");
+            let lastWord = element.value.substring(
+                element.value.length - 1);
+            //sadece rakam
+            var reg = new RegExp("^[0-9]+$");
+            var result = reg.test(lastWord);
+            if (!result) {
+                element.value = element.value.substring(0, element.value.length - 1);
+            }
+        }
+    </script>
+    <br>
+    <br>
+    <h4>String Control</h4>
+    <label for="">Değer Giriniz :</label>
+    <input type="text" id="text" onkeyup="stringRegEx()" placeholder="Lütfen değer giriniz..">
+
+    <script>
+        function stringRegEx() {
+            let element = document.getElementById("text");
+            let lastWord = element.value.substring(
+                element.value.length - 1);
+
+            var reg = new RegExp("^[A-Za-z]");
+            var result = reg.test(lastWord);
+            if (!result) {
+                element.value = element.value.substring(0, element.value.length - 1);
+            }
+        } 
+    </script>
+    <br>
+    <br>
+    <h4>Character Control</h4>
+    <label for="">Değer Giriniz :</label>
+    <input type="text" id="char" onkeyup="charRegEx()" placeholder="Lütfen değer giriniz..">
+
+    <script>
+        function charRegEx() {
+            let element = document.getElementById("char");
+            let lastWord = element.value.substring(
+                element.value.length - 1);
+
+            var reg = new RegExp("[^A-Za-z0-9_]");
+            var result = reg.test(lastWord);
+            if (!result) {
+                element.value = element.value.substring(0, element.value.length - 1);
+            }
+        } 
+    </script>
+
+    <br>
+    <br>
+    <h4>E-mail Control</h4>
+    <label for="">E-mail:</label>
+    <input type="email" name="email" id="email" placeholder="E-mail giriniz..." required oninput="emailRegEx()" >
+
+    <p id="entered">Entered:</p>
+    <p id="send">Send:</p>
+    <script>
+        const emailElmtRegex = new RegExp('[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-zA-Z]{2,4}');
+        document.getElementById("entered").innerHTML = "";
+        document.getElementById("send").innerHTML = ""
+
+        function emailRegEx() {
+            let emailElmt = document.getElementById("email");
+            document.getElementById("entered").innerHTML = "Entered: " + emailElmt.value;
+            emailElmt.value = emailElmt.value.toLowerCase();
+
+            if (emailElmtRegex.test(emailElmt.value)) {
+                document.getElementById("send").innerHTML = "Send: " + emailElmt.value;
+            } else {
+                document.getElementById("send").innerHTML = "Bu e-posta geçersiz"
+            }
+        }
+    </script>
+
+</body>
+
+</html>
